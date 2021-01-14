@@ -8,6 +8,8 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [aEmail, setAsyncEmail] = useState('');
   const [aPassword, setAsyncPassword] = useState('');
+  const [days,setDays]=useState('');
+  const [date,setDate]=useState('');
 
   const setSession = async () => {
     try {
@@ -16,15 +18,42 @@ const LoginScreen = ({navigation}) => {
       console.log(e);
     }
   };
-
+  const increment= async (loginDay) =>{
+    try{
+      await AsyncStorage.setItem('days', loginDay+1);
+    }catch(e){
+      console.log(e)
+    }
+  }
+  const reset= async () =>{
+    try{
+      await AsyncStorage.setItem('days',0);
+      await AsyncStorage.setItem('date',null)
+    }catch(e){
+      console.log(e)
+    }
+  }
+  
+  const StoreDate= async (date) =>{
+    try{
+      await AsyncStorage.setItem('date',date);
+      await AsyncStorage.setItem('days',1)
+    }catch(e){
+      console.log(e)
+    }
+  }
   async function fetchData() {
     try {
       const asyncEmail = await AsyncStorage.getItem('email');
       const asyncPass = await AsyncStorage.getItem('pass');
+      const loginDate= await AsyncStorage.getItem('date');
+      const loginDay=await AsyncStorage.getItem('days');
       if (asyncEmail !== null || asyncPass != null) {
         // value previously stored
         setAsyncEmail(asyncEmail);
         setAsyncPassword(asyncPass);
+        setDate(loginDate)
+        setDays(loginDay)
         setSession();
       }
     } catch (e) {
@@ -37,6 +66,24 @@ const LoginScreen = ({navigation}) => {
     if (email != null || password != null) {
       if (email === aEmail && password === aPassword) {
         console.log(email, 'ssad');
+        var dd = new Date(Date.now());
+        dd.toString();
+        if(loginDate!==null){
+          // dd = dd.getDate() + "/" + dd.getMonth() + 1 + "/" + dd.getFullYear();
+          var loD= loginDate.split("/");
+          if(dd.getFullYear()===loD[2]){
+              if(dd.getMonth()===loD[1]){
+                if((dd.getDay()-1)===loginDate[0]){
+                    increment(loginDay);
+                }else{
+                  reset();
+                }
+              }
+          }
+        }else{
+          dd = dd.getDate() + "/" + dd.getMonth() + 1 + "/" + dd.getFullYear()
+          StoreDate(dd)
+        }
         navigation.navigate('Bottom');
       } else {
         alert('Incorrect Email or Password');
