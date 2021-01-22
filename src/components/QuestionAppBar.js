@@ -11,14 +11,14 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import images from '../api/images';
 
-const QuestionAppBar = ({per, green, red}) => {
+const QuestionAppBar = ({per, green, red, id}) => {
   const navigation = useNavigation();
   const chart_wh = 24;
   const series = [red, green];
   const sliceColor = ['#F44336', '#4CAF50'];
   const setData = async (percc) => {
     try {
-      await AsyncStorage.setItem('one_one', percc.toString());
+      await AsyncStorage.setItem(`one_one${id}`, percc.toString());
     } catch (e) {
       console.log(e);
     }

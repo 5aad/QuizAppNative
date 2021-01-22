@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Title, Avatar} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {
@@ -7,6 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   View,
+  Image,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,19 +17,29 @@ const ProfileScreen = ({navigation}) => {
   const [fileData, setFileData] = useState('');
   const [fileUri, setFileUri] = useState('');
   const [session, setSession] = useState();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
 
-  // getSession = async () => {
-  //   try {
-  //     const asyncSession = await AsyncStorage.getItem('session');
-  //     if (asyncSession !== null) {
-  //       // value previously stored
-  //       setSession(asyncSession);
-  //     }
-  //   } catch (e) {
-  //     // error reading value
-  //     console.log(e);
-  //   }
-  // };
+  const getSession = async () => {
+    try {
+      const asyncSession = await AsyncStorage.getItem('session');
+      const asyncName = await AsyncStorage.getItem('username');
+      const asyncEmail = await AsyncStorage.getItem('email');
+      if (asyncSession !== null) {
+        // value previously stored
+        setSession(asyncSession);
+        setName(asyncName);
+        setEmail(asyncEmail);
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getSession();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -72,7 +84,13 @@ const ProfileScreen = ({navigation}) => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.header}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image style={{width: 24, height: 24}} source={images.leftArrow} />
+        </TouchableWithoutFeedback>
         <Title style={styles.headerText}>Profile</Title>
       </View>
       <View style={styles.subContainer}>
@@ -92,6 +110,7 @@ const ProfileScreen = ({navigation}) => {
               style={styles.txtInput}
               placeholder="Add Name"
               placeholderTextColor="black"
+              value={name}
             />
           </View>
           <Title style={styles.lbl}>Gender</Title>
@@ -116,6 +135,7 @@ const ProfileScreen = ({navigation}) => {
               style={styles.txtInput}
               placeholder="Email"
               placeholderTextColor="black"
+              value={email}
             />
           </View>
           <Button
@@ -177,6 +197,13 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     paddingVertical: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 250,
+    paddingHorizontal: 20,
   },
 });
 

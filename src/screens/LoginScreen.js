@@ -1,16 +1,30 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  ScrollView,
+} from 'react-native';
 import {Button, Title, Text, TextInput} from 'react-native-paper';
 import images from '../api/images';
+import {useIsFocused} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [aEmail, setAsyncEmail] = useState('');
   const [aPassword, setAsyncPassword] = useState('');
-  const [days,setDays]=useState('');
-  const [date,setDate]=useState('');
-
+  const [prevDate, setPrevDate] = useState('0');
+  const [currentDate, setCurrentDate] = useState('0');
+  const [increment, setIncrement] = useState('1');
+  const [day, setDay] = useState('');
+  const isFocused = useIsFocused();
+  let dd = new Date();
   const setSession = async () => {
     try {
       await AsyncStorage.setItem('session', 'sessionLogin');
@@ -18,43 +32,56 @@ const LoginScreen = ({navigation}) => {
       console.log(e);
     }
   };
-  const increment= async (loginDay) =>{
-    try{
-      await AsyncStorage.setItem('days', loginDay+1);
-    }catch(e){
-      console.log(e)
+
+  const reset = async () => {
+    try {
+      await AsyncStorage.setItem('asyncPrev', '0');
+      navigation.navigate('Bottom');
+    } catch (error) {
+      console.log(error);
     }
-  }
-  const reset= async () =>{
-    try{
-      await AsyncStorage.setItem('days',0);
-      await AsyncStorage.setItem('date',null)
-    }catch(e){
-      console.log(e)
+  };
+  const asyncDate = async () => {
+    try {
+      await AsyncStorage.setItem('asyncPrev', prevDate);
+      await AsyncStorage.setItem('asyncCurrent', dd.getDate().toString());
+      await AsyncStorage.setItem('asyncIncrement', increment);
+    } catch (error) {
+      console.log(error);
     }
-  }
-  
-  const StoreDate= async (date) =>{
-    try{
-      await AsyncStorage.setItem('date',date);
-      await AsyncStorage.setItem('days',1)
-    }catch(e){
-      console.log(e)
+  };
+  useEffect(() => {
+    // setDay(dd.getDate().toString());
+    if (prevDate === '0') {
+      console.log('if use ', dd.getDate().toString());
+      setPrevDate(dd.getDate.toString());
     }
-  }
+
+    fetchData();
+  }, [isFocused]);
+
   async function fetchData() {
     try {
       const asyncEmail = await AsyncStorage.getItem('email');
       const asyncPass = await AsyncStorage.getItem('pass');
-      const loginDate= await AsyncStorage.getItem('date');
-      const loginDay=await AsyncStorage.getItem('days');
-      if (asyncEmail !== null || asyncPass != null) {
+      const inc = await AsyncStorage.getItem('asyncIncrement');
+      const cur = await AsyncStorage.getItem('asyncCurrent');
+      const pre = await AsyncStorage.getItem('asyncPrev');
+      if (asyncEmail !== null || asyncPass != null || inc !== null) {
         // value previously stored
         setAsyncEmail(asyncEmail);
         setAsyncPassword(asyncPass);
-        setDate(loginDate)
-        setDays(loginDay)
-        setSession();
+        setCurrentDate(cur);
+        setPrevDate(pre);
+        setIncrement(inc);
+        console.log('parsprev', pre, cur, inc);
+        let dif = cur - pre;
+        console.log(dif);
+        if (dif === 1) {
+          setIncrement((dif + 1).toString());
+        } else {
+          console.log('diff');
+        }
       }
     } catch (e) {
       // error reading value
@@ -62,29 +89,21 @@ const LoginScreen = ({navigation}) => {
     }
   }
   const handleLogin = () => {
-    fetchData();
-    if (email != null || password != null) {
+    if (email !== null || password !== null) {
+      fetchData();
       if (email === aEmail && password === aPassword) {
+        setSession();
         console.log(email, 'ssad');
-        var dd = new Date(Date.now());
-        dd.toString();
-        if(loginDate!==null){
-          // dd = dd.getDate() + "/" + dd.getMonth() + 1 + "/" + dd.getFullYear();
-          var loD= loginDate.split("/");
-          if(dd.getFullYear()===loD[2]){
-              if(dd.getMonth()===loD[1]){
-                if((dd.getDay()-1)===loginDate[0]){
-                    increment(loginDay);
-                }else{
-                  reset();
-                }
-              }
-          }
-        }else{
-          dd = dd.getDate() + "/" + dd.getMonth() + 1 + "/" + dd.getFullYear()
-          StoreDate(dd)
+        console.log('parspressv', prevDate, currentDate, increment);
+        asyncDate();
+        if (prevDate !== '0' && currentDate !== '0' && increment !== '0') {
+          console.log('elseif', prevDate, currentDate, increment);
+          navigation.navigate('Bottom');
+        } else {
+          reset();
+
+          // navigation.navigate('Bottom');
         }
-        navigation.navigate('Bottom');
       } else {
         alert('Incorrect Email or Password');
       }
@@ -92,47 +111,59 @@ const LoginScreen = ({navigation}) => {
       alert('Please Enter your Email and Password');
     }
   };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.subContainer}>
-        <View style={{alignItems: 'center'}}>
-          <Image style={styles.illus} source={images.login_i} />
-        </View>
-        <Title style={styles.txtHeading}>Welcomeback!</Title>
-        <Text style={styles.txtSmall}>
-          Login in your existant account of cloud paas
-        </Text>
-        <TextInput
-          label="Email"
-          value={email}
-          onChangeText={(e) => setEmail(e)}
-        />
-        <TextInput
-          style={{marginBottom: 20, marginTop: 15}}
-          label="Password"
-          value={password}
-          onChangeText={(e) => setPassword(e)}
-        />
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.subContainer}>
+            <View style={{alignItems: 'center'}}>
+              <Image style={styles.illus} source={images.login_i} />
+            </View>
+            <ScrollView>
+              <Title style={styles.txtHeading}>Welcome Back!</Title>
+              <Text style={styles.txtSmall}>
+                Login in your existant account of cloud paas
+              </Text>
+              <TextInput
+                label="Email"
+                value={email}
+                onChangeText={(e) => setEmail(e)}
+              />
+              <TextInput
+                style={{marginBottom: 20, marginTop: 15}}
+                label="Password"
+                value={password}
+                onChangeText={(e) => setPassword(e)}
+              />
 
-        <View style={{alignItems: 'center'}}>
-          <Button
-            mode="contained"
-            onPress={handleLogin}
-            style={{width: 250, borderRadius: 15}}
-            labelStyle={styles.btnText}
-            contentStyle={styles.btnInner}>
-            Login
-          </Button>
-        </View>
-
-        <View style={styles.regContainer}>
-          <Text>don't have an account? </Text>
-          <Button mode="text" onPress={() => navigation.navigate('Register')}>
-            Sign up
-          </Button>
-        </View>
-      </View>
-    </SafeAreaView>
+              <View style={{alignItems: 'center'}}>
+                <Button
+                  mode="contained"
+                  onPress={handleLogin}
+                  style={{width: 250, borderRadius: 15}}
+                  labelStyle={styles.btnText}
+                  contentStyle={styles.btnInner}>
+                  Login
+                </Button>
+              </View>
+            </ScrollView>
+            <View>
+              <View style={styles.regContainer}>
+                <Text>don't have an account? </Text>
+                <Button
+                  mode="text"
+                  onPress={() => navigation.navigate('Register')}>
+                  Sign up
+                </Button>
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -162,14 +193,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   regContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
-    right: 0,
-    bottom: -50,
-    left: 0,
+    marginVertical: 10,
   },
   btnText: {
     fontSize: 18,

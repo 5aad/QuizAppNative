@@ -18,15 +18,19 @@ const SplashScreen = ({navigation}) => {
       const asyncUser = await AsyncStorage.getItem('session');
       if (asyncUser !== null) {
         // value previously stored
-        console.log('sssd', asyncUser)
+        console.log('sssd', asyncUser);
         if (data !== null && asyncUser === 'sessionLogin') {
           console.log('user', asyncUser);
           navigation.navigate('Bottom');
         } else if (data !== null && asyncUser === 'null') {
-          navigation.navigate('Login');
+          navigation.navigate('Started');
+        } else if (data !== null) {
+          navigation.navigate('Started');
         } else {
-          alert('Something Wrong');
+          alert('something wrong');
         }
+      }else{
+        navigation.navigate('Started');
       }
     } catch (e) {
       // error reading value
@@ -35,8 +39,7 @@ const SplashScreen = ({navigation}) => {
   };
   async function fetchMyAPI() {
     const data = await this.performTimeConsumingTask();
-    fetchData(data)
-    
+    fetchData(data);
   }
   useEffect(() => {
     fetchMyAPI();

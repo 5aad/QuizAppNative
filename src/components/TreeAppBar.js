@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import images from '../api/images';
 const styles = StyleSheet.create({
@@ -31,11 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-const TreeAppBar = ({check, headerName, headerWidth}) => {
- 
+const TreeAppBar = ({check, headerName, headerWidth, dayss, nav}) => {
   return (
     <View style={[styles.headerContainer, {width: headerWidth}]}>
-      <Text style={styles.headerText}>{headerName}</Text>
+      <Text onPress={() => nav.navigate('Bottom')} style={styles.headerText}>
+        {headerName}
+      </Text>
 
       <View style={styles.subContain}>
         <Image style={styles.tinyLogo} source={images.crown} />
@@ -44,7 +45,7 @@ const TreeAppBar = ({check, headerName, headerWidth}) => {
 
       <View style={styles.subContain}>
         <Image style={styles.tinyLogo} source={images.fire} />
-        <Text style={[styles.headerText, {color: 'orange'}]}>1</Text>
+        <Text style={[styles.headerText, {color: 'orange'}]}>{dayss}</Text>
       </View>
 
       <View style={styles.subContain}>

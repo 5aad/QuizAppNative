@@ -1,20 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View, StyleSheet, Image} from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
 import Svg, {G, Path, Ellipse} from 'react-native-svg';
 import {Text, TouchableRipple} from 'react-native-paper';
-const SkillTree = ({props, bgcolor, per, nav, innerImg, disabled}) => {
-  const handleClick = () => {
-    if (disabled === true) {
+import QuestionScreen from '../screens/QuestionScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
+const SkillTree = ({props, id, bgcolor, per, nav, innerImg, disabled}) => {
+  const [enable, setEnabled] = useState('');
+  const isFocused = useIsFocused();
+  const fetch = async () => {
+    try {
+      const enabled = await AsyncStorage.getItem('enableNext');
+      if (enabled !== null) {
+        console.log(enabled, 'Id saved');
+        setEnabled(enabled);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetch();
+  }, [id,isFocused]);
+
+  const handleClick = (en) => {
+    const idd = id - 1;
+    console.log(parseInt(en) + 1, idd.toString());
+    if (id <= parseInt(enable) + 1 || (enable === '' && id == 1)) {
+      nav.navigate('Question', {id: id});
+    } else {
       alert('not available');
-    } else if (disabled === false) {
-      nav.navigate('Question');
     }
   };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.subContainer}>
-        <TouchableRipple onPress={() => handleClick()} rippleColor="#fff">
+        <TouchableRipple onPress={() => handleClick(enable)} rippleColor="#fff">
           <View style={{flex: 1, position: 'relative'}}>
             <View style={styles.circleContainer}>
               <ProgressCircle

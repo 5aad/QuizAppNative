@@ -9,6 +9,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BottomTabBar from './BottomTabBar';
 import TreeScreen from './screens/TreeScreen';
+import PDFView from './screens/PDFView';
+import ProfileScreen from './screens/ProfileScreen';
+import StartedScreen from './screens/StartedScreen';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -18,6 +21,11 @@ const App = () => {
           options={{headerShown: false}}
           name="Splash"
           component={SplashScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Started"
+          component={StartedScreen}
         />
 
         <Stack.Screen
@@ -53,11 +61,22 @@ const App = () => {
           name="Question"
           component={QuestionScreen}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           options={{headerShown: false}}
-          name="Skill"
+          name="Tree"
           component={TreeScreen}
-        /> */}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Profile"
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="PDF"
+          component={PDFView}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

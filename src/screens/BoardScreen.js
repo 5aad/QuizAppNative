@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import TopAppbar from '../components/TopAppbar';
-import ItemList from '../components/ItemList';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BoardList from '../components/BoardList';
@@ -9,7 +8,7 @@ const Data = [
   {
     id: '1',
     title: 'AQA',
-    status: 'coming soon!',
+    status: '',
     screenName: 'Topic',
     img: images.aqa,
     type: 'board',

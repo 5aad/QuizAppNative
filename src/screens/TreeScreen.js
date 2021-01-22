@@ -14,18 +14,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import images from '../api/images';
 const TreeScreen = ({props, navigation}) => {
   const [headerNm, setHeaderNm] = useState('');
-  const [totalProgress, setTotalProgress] = useState(0);
+  const [totalProgress1, setTotalProgress1] = useState(0);
+  const [totalProgress2, setTotalProgress2] = useState(0);
+  const [totalProgress3, setTotalProgress3] = useState(0);
+  const [totalProgress4, setTotalProgress4] = useState(0);
   const isFocused = useIsFocused();
-
+  const [days, setDays] = useState('');
+  const [enable, setEnable] = useState(false);
+  const [cc, setCC] = useState([1, 2, 3]);
   async function fetchData() {
     try {
       const value = await AsyncStorage.getItem('topic_title');
-      const progres = await AsyncStorage.getItem('one_one');
-      if (value !== null || progres != null) {
+
+      const progres1 = await AsyncStorage.getItem(`one_one1`);
+      const progres2 = await AsyncStorage.getItem(`one_one2`);
+      const progres3 = await AsyncStorage.getItem(`one_one3`);
+      const progres4 = await AsyncStorage.getItem(`one_one4`);
+
+      const loginDay = await AsyncStorage.getItem('asyncIncrement');
+      if (value !== null || progres1 != null || loginDay !== null) {
         // value previously stored
-        console.log(progres);
+        console.log('days', loginDay);
         setHeaderNm(value);
-        setTotalProgress(parseFloat(progres) * 100);
+        setTotalProgress1(parseFloat(progres1) * 100);
+        setTotalProgress2(parseFloat(progres2) * 100);
+        setTotalProgress3(parseFloat(progres3) * 100);
+        setTotalProgress4(parseFloat(progres4) * 100);
+        // if(parseFloat(progres) * 100,'progre'==100){
+        //     setEnable(false)
+        // }
+        setDays(loginDay);
       }
     } catch (e) {
       // error reading value
@@ -37,36 +55,40 @@ const TreeScreen = ({props, navigation}) => {
   }, [isFocused]);
   return (
     <SafeAreaView style={styles.container}>
-      <TreeAppBar headerName={headerNm} />
+      <TreeAppBar headerName={headerNm} dayss={days} nav={navigation} />
       <ScrollView style={styles.subContainer}>
         <SkillTree
+          id="1"
           bgcolor="#31BAF9"
           nav={navigation}
-          per={totalProgress}
+          per={totalProgress1}
           innerImg={images.bacteria}
           disabled={false}
         />
 
         <View style={styles.skillContainer}>
           <SkillTree
+            id="2"
             bgcolor="#31BAF9"
             nav={navigation}
-            per={0}
+            per={totalProgress2}
             innerImg={images.bacteria}
             disabled={true}
           />
           <SkillTree
+            id="3"
             bgcolor="#31BAF9"
             nav={navigation}
-            per={0}
+            per={totalProgress3}
             innerImg={images.bacteria}
             disabled={true}
           />
         </View>
         <SkillTree
+          id="4"
           bgcolor="#31BAF9"
           nav={navigation}
-          per={0}
+          per={totalProgress4}
           innerImg={images.bacteria}
           disabled={true}
         />

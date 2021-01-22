@@ -1,8 +1,7 @@
 import React from 'react';
 import {Button, Title} from 'react-native-paper';
-import {SafeAreaView, Text, StyleSheet, View} from 'react-native';
-import TopAppbar from '../components/TopAppbar';
-const SettingScreen = () => {
+import {SafeAreaView, Linking, StyleSheet, View, Platform} from 'react-native';
+const SettingScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -15,7 +14,16 @@ const SettingScreen = () => {
           contentStyle={styles.btnImgInner}
           labelStyle={styles.btnTxt}
           mode="contained"
-          onPress={() => console.log('Pressed')}>
+          onPress={() => navigation.navigate('Profile')}>
+          Profile
+        </Button>
+        <Button
+          style={styles.btn}
+          color="white"
+          contentStyle={styles.btnImgInner}
+          labelStyle={styles.btnTxt}
+          mode="contained"
+          onPress={() => navigation.navigate('PDF')}>
           Terms of Use
         </Button>
 
@@ -25,19 +33,39 @@ const SettingScreen = () => {
           contentStyle={styles.btnImgInner}
           labelStyle={styles.btnTxt}
           mode="contained"
-          onPress={() => console.log('Pressed')}>
+          onPress={() => navigation.navigate('PDF')}>
           Privacy Policy
         </Button>
 
-        <Button
-          style={styles.btn}
-          color="white"
-          contentStyle={styles.btnImgInner}
-          labelStyle={styles.btnTxt}
-          mode="contained"
-          onPress={() => console.log('Pressed')}>
-          Rate Us
-        </Button>
+        {Platform.OS != 'ios' ? (
+          <Button
+            style={styles.btn}
+            color="white"
+            contentStyle={styles.btnImgInner}
+            labelStyle={styles.btnTxt}
+            mode="contained"
+            onPress={() =>
+              Linking.openURL(
+                `market://details?id=com.king.candycrushsaga&hl=en`,
+              ).catch((err) => alert('Please check for the Google Play Store'))
+            }>
+            Rate Us
+          </Button>
+        ) : (
+          <Button
+            style={styles.btn}
+            color="white"
+            contentStyle={styles.btnImgInner}
+            labelStyle={styles.btnTxt}
+            mode="contained"
+            onPress={() =>
+              Linking.openURL(
+                `itms://itunes.apple.com/in/app/apple-store/id553834731`,
+              ).catch((err) => alert('Please check for the App Store'))
+            }>
+            Rate Us
+          </Button>
+        )}
 
         <Button
           style={styles.btn}
@@ -45,19 +73,10 @@ const SettingScreen = () => {
           contentStyle={styles.btnImgInner}
           labelStyle={styles.btnTxt}
           mode="contained"
-          onPress={() => console.log('Pressed')}>
-          Support
+          onPress={() => Linking.openURL('mailto:support@example.com')}>
+          Contact Us
         </Button>
 
-        <Button
-          style={styles.btn}
-          color="white"
-          contentStyle={styles.btnImgInner}
-          labelStyle={styles.btnTxt}
-          mode="contained"
-          onPress={() => console.log('Pressed')}>
-          FAQs
-        </Button>
         <Button
           style={styles.btn}
           color="white"
@@ -103,7 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
-    paddingVertical:10
+    paddingVertical: 10,
   },
 });
 

@@ -36,7 +36,7 @@ export default () => (
       activeBackgroundColor: '#fff',
       tabStyle: styles.b,
     }}>
-    <Tabs.Screen
+    {/* <Tabs.Screen
       name="Tree"
       component={TreeScreen}
       options={{
@@ -49,7 +49,7 @@ export default () => (
           />
         ),
       }}
-    />
+    /> */}
 
     <Tabs.Screen
       name="Home"
@@ -65,7 +65,7 @@ export default () => (
         ),
       }}
     />
-    <Tabs.Screen
+    {/* <Tabs.Screen
       name="Profile"
       component={ProfileScreen}
       options={{
@@ -78,7 +78,7 @@ export default () => (
           />
         ),
       }}
-    />
+    /> */}
 
     <Tabs.Screen
       name="Setting"

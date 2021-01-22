@@ -1,8 +1,17 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Button, Title, Text, TextInput} from 'react-native-paper';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const RegisterScreen = ({navigation}) => {
   const [userName, setUserName] = useState('');
@@ -18,54 +27,67 @@ const RegisterScreen = ({navigation}) => {
       } catch (e) {
         console.log(e);
       }
-      navigation.navigate('Login')
+      navigation.navigate('Login');
     } else {
       alert('Please Enter your Email and Password');
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.subContainer}>
-        <View style={{alignItems: 'center'}}>
-          <Image style={styles.illus} source={images.reg_i} />
-        </View>
-        <Title style={styles.txtHeading}>SignUp!</Title>
-        <TextInput
-          style={{marginBottom: 15}}
-          label="User Name"
-          value={userName}
-          onChangeText={(e) => setUserName(e)}
-        />
-        <TextInput
-          label="Email"
-          value={email}
-          onChangeText={(e) => setEmail(e)}
-        />
-        <TextInput
-          style={{marginBottom: 20, marginTop: 15}}
-          label="Password"
-          value={password}
-          onChangeText={(e) => setPassword(e)}
-        />
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.subContainer}>
+            <View style={{alignItems: 'center'}}>
+              <Image style={styles.illus} source={images.reg_i} />
+            </View>
+            <ScrollView style={{backgroundColor: '#fff'}}>
+              <Title style={styles.txtHeading}>Sign Up!</Title>
 
-        <View style={{alignItems: 'center'}}>
-          <Button
-            mode="contained"
-            onPress={handleRegister}
-            style={{width: 250, borderRadius: 15}}
-            labelStyle={styles.btnText}
-            contentStyle={styles.btnInner}>
-            SignUp
-          </Button>
-        </View>
-        <View style={styles.regContainer}>
-          <Text>already have an account? </Text>
-          <Button mode="text" onPress={() => navigation.navigate('Login')}>
-            Login
-          </Button>
-        </View>
-      </View>
-    </SafeAreaView>
+              <TextInput
+                style={{marginBottom: 15}}
+                label="User Name"
+                value={userName}
+                onChangeText={(e) => setUserName(e)}
+              />
+              <TextInput
+                label="Email"
+                value={email}
+                onChangeText={(e) => setEmail(e)}
+              />
+              <TextInput
+                style={{marginBottom: 20, marginTop: 15}}
+                label="Password"
+                value={password}
+                onChangeText={(e) => setPassword(e)}
+              />
+
+              <View style={{alignItems: 'center'}}>
+                <Button
+                  mode="contained"
+                  onPress={handleRegister}
+                  style={{width: 250, borderRadius: 15}}
+                  labelStyle={styles.btnText}
+                  contentStyle={styles.btnInner}>
+                  Sign Up
+                </Button>
+              </View>
+            </ScrollView>
+            <View>
+              <View style={styles.regContainer}>
+                <Text>already have an account? </Text>
+                <Button
+                  mode="text"
+                  onPress={() => navigation.navigate('Login')}>
+                  Login
+                </Button>
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
@@ -88,14 +110,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   regContainer: {
-    flex:1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
-    right: 0,
-    bottom: -40,
-    left: 0,
+    marginVertical: 10,
   },
   btnText: {
     fontSize: 18,

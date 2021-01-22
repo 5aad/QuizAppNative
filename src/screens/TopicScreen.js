@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import TopAppbar from '../components/TopAppbar';
-import ItemList from '../components/ItemList';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TopicList from '../components/TopicList';

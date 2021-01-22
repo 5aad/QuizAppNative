@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
-import ItemList from '../components/ItemList';
 import images from '../api/images';
-import {Title} from 'react-native-paper';
+import {Button, Title} from 'react-native-paper';
 import CourseList from '../components/CourseList';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 const Data = [
   {
     id: '1',
@@ -31,6 +32,7 @@ const Data = [
   },
 ];
 const HomeScreen = ({navigation}) => {
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -39,6 +41,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.subContainer}>
         <CourseList nav={navigation} Data={Data} />
       </View>
+      {/* <Button onPress={handless}>check</Button> */}
     </SafeAreaView>
   );
 };

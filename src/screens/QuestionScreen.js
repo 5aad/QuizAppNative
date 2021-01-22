@@ -58,7 +58,8 @@ const questions = [
     ],
   },
 ];
-const QuestionScreen = () => {
+const QuestionScreen = ({route}) => {
+  const {id} = route.params;
   const navigation = useNavigation();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [opt, setOpt] = useState();
@@ -69,15 +70,30 @@ const QuestionScreen = () => {
   const [checkAnswer, setCheckAnwer] = useState(false);
   const [correct, setCorrect] = useState(1);
   const [wrong, setWrong] = useState(1);
+  const [clickedNext, setClickedNext] = useState(0);
+
+  const [enableNext, setEnableNext] = useState(false);
 
   const setData = async () => {
     try {
-      await AsyncStorage.setItem('one_one', perc.toString());
+      await AsyncStorage.setItem(`one_one${id}`, perc.toString());
     } catch (e) {
       console.log(e);
     }
   };
+
+  const setEnable = async () => {
+    try {
+      // console.log(id,'id saved')
+      await AsyncStorage.setItem('enableNext', id.toString());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleNextButton = () => {
+    setClickedNext((prev) => prev + 1);
+
     const nextQuestion = currentQuestion + 1;
     const increment = perc + 0.2;
     if (nextQuestion < questions.length) {
@@ -87,8 +103,12 @@ const QuestionScreen = () => {
       setCheckAnwer(false);
       setColorBgBtn('#00ffff47');
       setColorBorderBtn('#00ffff');
-      setBtnDisable(true)
+      setBtnDisable(true);
     } else {
+      setEnableNext(true);
+      console.log('true', JSON.stringify(id));
+      setEnable();
+
       setData();
       this.RBSheet.close();
       navigation.goBack();
@@ -102,14 +122,13 @@ const QuestionScreen = () => {
     const red = wrong + 1;
     if (checkAnswer === true) {
       this.RBSheet.open();
-      setColorBorderBtn('#00ff00');
-      setColorBgBtn('#00ff0054');
+      setColorBorderBtn('#03ac13');
+      setColorBgBtn('#03ac13');
       setCorrect(green);
-      
     } else if (checkAnswer === false) {
       this.RBSheet.open();
-      setColorBorderBtn('#f00');
-      setColorBgBtn('#ff000061');
+      setColorBorderBtn('#e60026');
+      setColorBgBtn('#e60026');
       setWrong(red);
     } else {
       alert('something wrong!');
@@ -118,7 +137,7 @@ const QuestionScreen = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <QuestionAppBar per={perc} green={correct} red={wrong}/>
+        <QuestionAppBar per={perc} green={correct} red={wrong} id={id} />
 
         <ScrollView contentContainerStyle={styles.subContainer}>
           <Title style={styles.que}>
@@ -149,11 +168,11 @@ const QuestionScreen = () => {
 
         <View style={styles.btnContainer}>
           <Button
-            style={[styles.btn, {borderColor: colorBorderBtn}]}
-            color={colorBgBtn}
+            style={[styles.btn]}
+            color={'#03ac13'}
             disabled={btnDisable}
             contentStyle={styles.btnImgInner}
-            labelStyle={[styles.btnTxt, {color: colorBorderBtn}]}
+            labelStyle={[styles.btnTxt]}
             mode="contained"
             onPress={() => handleCheckButton()}>
             check
@@ -188,7 +207,7 @@ const QuestionScreen = () => {
             color={colorBgBtn}
             disabled={btnDisable}
             contentStyle={styles.btnImgInner}
-            labelStyle={[styles.btnTxt, {color: colorBorderBtn}]}
+            labelStyle={[styles.btnTxt]}
             mode="contained"
             onPress={handleNextButton}>
             Continue
@@ -231,7 +250,7 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     fontSize: 18,
-    color: '#0ab925',
+    color: '#fff',
     fontWeight: 'bold',
   },
   surface: {
@@ -240,15 +259,15 @@ const styles = StyleSheet.create({
     width: 300,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    elevation: 4,
 
-    borderColor: '#00ffff',
+    borderColor: '#999999',
     borderWidth: 2,
     marginVertical: 8,
     borderRadius: 10,
   },
   active: {
-    backgroundColor: '#00ffff47',
+    backgroundColor: '#b3ecff',
+    borderColor: '#80dfff',
   },
   tinyLogo: {
     height: 200,
