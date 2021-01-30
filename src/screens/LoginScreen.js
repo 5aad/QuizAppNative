@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from 'react-native';
-import {authh as auth} from '../Firebase';
+import auth from '@react-native-firebase/auth';
 import {Button, Title, Text, TextInput} from 'react-native-paper';
 import images from '../api/images';
 import {useIsFocused} from '@react-navigation/native';
@@ -84,7 +84,7 @@ const LoginScreen = ({navigation}) => {
   const handleLogin = () => {
     if (email != null || password != null) {
         fetchData()
-        auth
+        auth()
         .signInWithEmailAndPassword(email, password)
         .then((authUser) => {
           if (authUser.user.emailVerified) {
