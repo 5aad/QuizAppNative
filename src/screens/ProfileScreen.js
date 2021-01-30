@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
 
 const ProfileScreen = ({navigation}) => {
   const [fileData, setFileData] = useState('');
@@ -43,6 +44,7 @@ const ProfileScreen = ({navigation}) => {
 
   const handleLogout = async () => {
     try {
+      auth().signOut();
       await AsyncStorage.setItem('session', 'null');
     } catch (e) {
       console.log(e);
