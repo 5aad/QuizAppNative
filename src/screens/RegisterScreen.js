@@ -30,20 +30,20 @@ const RegisterScreen = ({navigation}) => {
         authUser.user?.sendEmailVerification();
         alert('We have sent an email to your inbox please verify your email!')
         navigation.navigate('Login');
-        firestore
-          .collection('users')
-          .doc()
-          .set({
-            email:email,
-            password:password,
-            userName:userName
-          })
-          .then(() => {
-            console.log('User added!');
-          })
-          .catch((error)=>{
-            console.log(error.code)
-          })
+//         firestore
+//           .collection('users')
+//           .doc()
+//           .set({
+//             email:email,
+//             password:password,
+//             userName:userName
+//           })
+//           .then(() => {
+//             console.log('User added!');
+//           })
+//           .catch((error)=>{
+//             console.log(error.code)
+//           })
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
