@@ -18,16 +18,46 @@ const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = async () => {
+  const handleRegister = () => {
     if (userName != null || email != null || password != null) {
-      try {
-        await AsyncStorage.setItem('username', userName);
-        await AsyncStorage.setItem('email', email);
-        await AsyncStorage.setItem('pass', password);
-      } catch (e) {
-        console.log(e);
-      }
-      navigation.navigate('Login');
+      auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(async (authUser) => {
+        authUser.user.updateProfile({
+          displayName: userName,
+        });
+        authUser.user?.sendEmailVerification();
+        alert('We have sent an email to your inbox please verify your email!')
+        navigation.navigate('Login');
+        firestore
+          .collection('users')
+          .doc()
+          .set({
+            email:email,
+            password:password,
+            userName:userName
+          })
+          .then(() => {
+            console.log('User added!');
+          })
+          .catch((error)=>{
+            console.log(error.code)
+          })
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+       
+          alert('That email address is already in use!')
+        }
+        if (error.code === 'auth/invalid-email') {
+          alert('That email address is invalid!')
+        }
+        if(error.code=== 'auth/weak-password'){
+          alert('The password is too weak');
+        }
+        console.error(error);
+      });
+    
     } else {
       alert('Please Enter your Email and Password');
     }
