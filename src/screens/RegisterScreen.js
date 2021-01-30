@@ -13,8 +13,9 @@ import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScrollView} from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
-
+import firestore from '@react-native-firebase/firestore';
 const RegisterScreen = ({navigation}) => {
+  const firestoree=firestore()
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,20 +31,19 @@ const RegisterScreen = ({navigation}) => {
         authUser.user?.sendEmailVerification();
         alert('We have sent an email to your inbox please verify your email!')
         navigation.navigate('Login');
-//         firestore
-//           .collection('users')
-//           .doc()
-//           .set({
-//             email:email,
-//             password:password,
-//             userName:userName
-//           })
-//           .then(() => {
-//             console.log('User added!');
-//           })
-//           .catch((error)=>{
-//             console.log(error.code)
-//           })
+        firestoree
+          .collection('users')
+          .doc()
+          .set({
+            email:email,
+            userName:userName
+          })
+          .then(() => {
+            console.log('User added!');
+          })
+          .catch((error)=>{
+            console.log(error.code)
+          })
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

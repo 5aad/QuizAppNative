@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "677027966071",
+    "project_id": "cloudpass-6a9f5",
+    "storage_bucket": "cloudpass-6a9f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677027966071:android:93a17213627eff98f7ea72",
+        "android_client_info": {
+          "package_name": "com.cloudpass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677027966071-54hcqjsq5glhm4vo5pq1et9ebmhgbmg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cloudpass",
+            "certificate_hash": "ed72dee999cbb51d4661e9ba80bda40bbd3afe84"
+          }
+        },
+        {
+          "client_id": "677027966071-o9br32eakaj17roclugd8g4pp3pgto7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuIL7ssAReLnb79t0-bzVj3qC6mQMk4ww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677027966071-o9br32eakaj17roclugd8g4pp3pgto7k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "677027966071-p74q12obfrouh5f9lct28ev2mmdjolln.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "QuizAppNative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
