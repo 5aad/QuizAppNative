@@ -12,6 +12,7 @@ import {Button, Title, Text, TextInput} from 'react-native-paper';
 import images from '../api/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScrollView} from 'react-native-gesture-handler';
+import auth from '@react-native-firebase/auth';
 
 const RegisterScreen = ({navigation}) => {
   const [userName, setUserName] = useState('');
@@ -20,7 +21,7 @@ const RegisterScreen = ({navigation}) => {
 
   const handleRegister = () => {
     if (userName != null || email != null || password != null) {
-      auth
+      auth()
       .createUserWithEmailAndPassword(email, password)
       .then(async (authUser) => {
         authUser.user.updateProfile({
