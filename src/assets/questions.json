@@ -1,0 +1,506 @@
+[{
+    "level": "1",
+    "topics": [{
+            "name": "cells",
+            "questions": [{
+                    "Bubble": "Cells",
+                    "Question": "Prokaryotic cells are significantly smaller than eukaryotic cell. Name another difference between them",
+                    "Question Type": "1",
+                    "answer": "Prokaryotic cells do not have nucleus",
+                    "options": [
+                        "Prokaryotic cells do not have nucleus",
+                        "Prokaryotic cells do not have cell membrane",
+                        "Prokaryotic cells are more advanced structures",
+                        "Prokaryotic cells have chloroplasts"
+                    ],
+                    "image": "ATP"
+                },
+                {
+                    "Bubble": "Cells",
+                    "Question": "Bacterial cells are an example of prokaryotic cells. What is the range in diameter of a bacterium?",
+                    "Question Type": "1",
+                    "answer": "0.1 �m - 5 �m",
+                    "options": [
+                        "0.1 �m - 5 �m",
+                        "1 mm - 10mm",
+                        "0.01 nm - 0.1nm",
+                        "1cm"
+                    ],
+                    "image": "Oxygen"
+                }
+            ]
+        },
+        {
+            "name": "Microscopy",
+            "questions": [{
+                    "Bubble": "Microscopy",
+                    "Question": "Light microscopes have lower magnification and resolution compared to �. microscopes",
+                    "Question Type": "[3]",
+                    "Anwer": "electron",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[virus]"
+                },
+                {
+                    "Bubble": "Microscopy",
+                    "Question": "A plant cell with a real width of 0.014mm is observed through a light microscope and its image width measured being 3.5mm. What is the magnification of the image? Use the formula magnification = size of image/size of real object",
+                    "Question Type": "[2]",
+                    "Anwer": "250",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[microscope sample]"
+                },
+                {
+                    "Bubble": "Microscopy",
+                    "Question": "A red blood cell is 8 �m in diameter. A bacterial cell is 40 times smaller. What is the diameter of the bacterial cell?",
+                    "Question Type": "[1]",
+                    "Anwer": "0.2 �m",
+                    "Option 1": "0.02�m",
+                    "Option 2": "2�m",
+                    "Option 3": "0.2�m",
+                    "Option 4": "20�m",
+                    "Image": "[red blood cell]"
+                },
+                {
+                    "Bubble": "Microscopy",
+                    "Question": "What is labelled A",
+                    "Question Type": "[4]",
+                    "Anwer": "eyepiece lens",
+                    "Option 1": "eyepiece lens",
+                    "Option 2": "stage",
+                    "Option 3": "objective lens",
+                    "Option 4": "course focus",
+                    "Image": "[light microscope]"
+                },
+                {
+                    "Bubble": "Microscopy",
+                    "Question": "Electron microscopes, unlike optical microscopes, do not use light but �. to form an image of the sample observed.",
+                    "Question Type": "[3]",
+                    "Anwer": "electrons",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[electron microscope]"
+                }
+            ]
+        },
+        {
+            "name": "Diffusion",
+            "questions": [{
+                    "Bubble": "Diffusion",
+                    "Question": "Diffusion is the spreading out of particles an area of �.. concentration to an area of �.. Concentration",
+                    "Question Type": "[3]",
+                    "Anwer": "Higher/Lower",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[diffusion]"
+                },
+                {
+                    "Bubble": "Diffusion",
+                    "Question": "Which of these substances can diffuse throughout the cell membrane (select two)",
+                    "Question Type": "[1]",
+                    "Anwer": "Carbon Dioxide and Water",
+                    "Option 1": "Proteins",
+                    "Option 2": "Enzimes",
+                    "Option 3": "Carbon Dioxide",
+                    "Option 4": "Water",
+                    "Image": "[diffusion in cells]"
+                },
+                {
+                    "Bubble": "Diffusion",
+                    "Question": "Which of these factors do not affect the rate of diffusion",
+                    "Question Type": "[1]",
+                    "Anwer": "The amount of ATP available",
+                    "Option 1": "The temperature",
+                    "Option 2": "The surface area of the membrane",
+                    "Option 3": "The difference in cocncentrations",
+                    "Option 4": "The amount of available ATP",
+                    "Image": "[diffusion trough membrane]"
+                },
+                {
+                    "Bubble": "Diffusion",
+                    "Question": "The diagram above shows the concentration of Oxygen in three different cells. Drag the Oxygen particle below being at a concentration 2% onto the cell which is more likely to diffuse",
+                    "Question Type": "[4]",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Diffusion",
+                    "Question": "Oxygen moves into our body through diffusion in the lungs from the alveoli to the �.",
+                    "Question Type": "[3]",
+                    "Anwer": "blood or blood stream",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[diffusion in lungs]"
+                }
+            ]
+        },
+        {
+            "name": "Active Transport",
+            "questions": [{
+                    "Bubble": "Active Transport",
+                    "Question": "Active transport moves substances from a more �. solution to a more �. solution",
+                    "Question Type": "[3]",
+                    "Anwer": "dilute/concentrated",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[solution]"
+                },
+                {
+                    "Bubble": "Active Transport",
+                    "Question": "What do cells require to carry on active transport?",
+                    "Question Type": "[2]",
+                    "Anwer": "ATP or energy",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[ATP]"
+                },
+                {
+                    "Bubble": "Active Transport",
+                    "Question": "Active transport in plants allows them to have a helthy growth. Which one of these  substances  is absorbed via active transport?",
+                    "Question Type": "[1]",
+                    "Anwer": "Mineral ions",
+                    "Option 1": "Glucose",
+                    "Option 2": "Water",
+                    "Option 3": "Mineral ions",
+                    "Option 4": "Carbon Dioxide",
+                    "Image": "[healthy plant]"
+                },
+                {
+                    "Bubble": "Active Transport",
+                    "Question": "Sugar molecules are absorbed from the gut into the blood through active transport. What are sugares used for by the cells?",
+                    "Question Type": "[2]",
+                    "Anwer": "Cell respiration or respiration or produce energy",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[glucose]"
+                },
+                {
+                    "Bubble": "Active Transport",
+                    "Question": "Active transport, unlike diffusion which is a passive process, requires energy to move substances �..a concentration gradient",
+                    "Question Type": "[3]",
+                    "Anwer": "Against",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[against]"
+                }
+            ]
+        },
+        {
+            "name": "Exchanging Substances",
+            "questions": [{
+                    "Bubble": "Exchanging Substances",
+                    "Question": "Human body is remarkably adapted in exchanging substances. Which of these features  is not essential for a more efficient exchange  of Oxygen between  the lungs and the circulatory system?",
+                    "Question Type": "[1]",
+                    "Anwer": "Presence of enzimes in the lungs",
+                    "Option 1": "Thin walls for the substances to go through",
+                    "Option 2": "Presence of enzimes in the lungs",
+                    "Option 3": "Good blood supply",
+                    "Option 4": "Large surface area",
+                    "Image": "[lungs]"
+                },
+                {
+                    "Bubble": "Exchanging Substances",
+                    "Question": "Match the substances below with their movement during gas exchange in lungs",
+                    "Question Type": "[4]",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Exchanging Substances",
+                    "Question": "The lungs contain millions of tiny air sacs called �.which allow a better efficiency during the gas exchange",
+                    "Question Type": "[3]",
+                    "Anwer": "Alveoli",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[oxygen]"
+                },
+                {
+                    "Bubble": "Exchanging Substances",
+                    "Question": "What is the name of the tiny projections covering the internal tissue of the small intestine?",
+                    "Question Type": "[2]",
+                    "Anwer": "Villi or villus",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[villi]"
+                },
+                {
+                    "Bubble": "Exchanging Substances",
+                    "Question": "Within each projection there is a network of �..which guarantee an efficient blood supply for the absorption of food molecules",
+                    "Question Type": "[3]",
+                    "Anwer": "Capillaries",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": "[food absorption]"
+                }
+            ]
+        },
+        {
+            "name": "Microscopy II",
+            "questions": [{
+                    "Bubble": "Microscopy II",
+                    "Question": "A student wants to analyse a sample using a microscope. Choose the appropriate magnification she should use to look at it for the first time.",
+                    "Question Type": "[1]",
+                    "Anwer": "X4",
+                    "Option 1": "X4",
+                    "Option 2": "X40",
+                    "Option 3": "X100",
+                    "Option 4": "X200",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Microscopy II",
+                    "Question": "The image below shows an animal cell using a 15X eye piece lens and a 30X objective lens. Calculate the total magnification of the image.",
+                    "Question Type": "[2]",
+                    "Anwer": "X400",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Microscopy II",
+                    "Question": "Calculate the actual size of an onion cell which measures 17mm when magnified 1000x",
+                    "Question Type": "[2]",
+                    "Anwer": "0.017 mm",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Microscopy II",
+                    "Question": "��.is the minimum distance at which two distinct points of a specimen can still be seen",
+                    "Question Type": "[3]",
+                    "Anwer": "resoluton",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Microscopy II",
+                    "Question": "A student discovered the real length of his specimen is 0.05mm. What is it equivalent to in ?m",
+                    "Question Type": "[1]",
+                    "Anwer": "50 ?m",
+                    "Option 1": "0.005?m",
+                    "Option 2": "5 ?m",
+                    "Option 3": "50 ?m",
+                    "Option 4": "500 ?m",
+                    "Image": ""
+                }
+            ]
+        },
+        {
+            "name": "Osmosis",
+            "questions": [{
+                    "Bubble": "Osmosis",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Osmosis",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Osmosis",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Osmosis",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Osmosis",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                }
+            ]
+        },
+        {
+            "name": "Cell Differentiation",
+            "questions": [{
+                    "Bubble": "Cell Differentiation",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Cell Differentiation",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Cell Differentiation",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Cell Differentiation",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Cell Differentiation",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                }
+            ]
+        },
+        {
+            "name": "Chromosomes",
+            "questions": [{
+                    "Bubble": "Chromosomes",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Chromosomes",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Chromosomes",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Chromosomes",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                },
+                {
+                    "Bubble": "Chromosomes",
+                    "Question": "",
+                    "Question Type": "",
+                    "Anwer": "",
+                    "Option 1": "",
+                    "Option 2": "",
+                    "Option 3": "",
+                    "Option 4": "",
+                    "Image": ""
+                }
+            ]
+        }
+    ]
+}]

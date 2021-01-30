@@ -1,4 +1,12 @@
 {
-  "name": "AwesomeProject",
-  "displayName": "AwesomeProject"
+  "name": "cloudPass",
+  "displayName": "cloudPass",
+  "expo": {
+    "name": "cloudPass",
+    "slug": "cloudPass",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }

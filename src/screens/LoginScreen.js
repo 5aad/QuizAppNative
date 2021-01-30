@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,26 +8,26 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ScrollView,
-} from 'react-native';
-import {Button, Title, Text, TextInput} from 'react-native-paper';
-import images from '../api/images';
-import {useIsFocused} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [aEmail, setAsyncEmail] = useState('');
-  const [aPassword, setAsyncPassword] = useState('');
-  const [prevDate, setPrevDate] = useState('0');
-  const [currentDate, setCurrentDate] = useState('0');
-  const [increment, setIncrement] = useState('1');
-  const [day, setDay] = useState('');
+} from "react-native";
+import { Button, Title, Text, TextInput } from "react-native-paper";
+import images from "../api/images";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [aEmail, setAsyncEmail] = useState("");
+  const [aPassword, setAsyncPassword] = useState("");
+  const [prevDate, setPrevDate] = useState("0");
+  const [currentDate, setCurrentDate] = useState();
+  const [increment, setIncrement] = useState("1");
+  const [day, setDay] = useState("");
   const isFocused = useIsFocused();
   let dd = new Date();
   const setSession = async () => {
     try {
-      await AsyncStorage.setItem('session', 'sessionLogin');
+      await AsyncStorage.setItem("session", "sessionLogin");
     } catch (e) {
       console.log(e);
     }
@@ -35,25 +35,25 @@ const LoginScreen = ({navigation}) => {
 
   const reset = async () => {
     try {
-      await AsyncStorage.setItem('asyncPrev', '0');
-      navigation.navigate('Bottom');
+      await AsyncStorage.setItem("asyncPrev", "0");
+      navigation.navigate("Bottom");
     } catch (error) {
       console.log(error);
     }
   };
   const asyncDate = async () => {
     try {
-      await AsyncStorage.setItem('asyncPrev', prevDate);
-      await AsyncStorage.setItem('asyncCurrent', dd.getDate().toString());
-      await AsyncStorage.setItem('asyncIncrement', increment);
+      await AsyncStorage.setItem("asyncPrev", prevDate);
+      await AsyncStorage.setItem("asyncCurrent", dd.getDate().toString());
+      await AsyncStorage.setItem("asyncIncrement", increment);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     // setDay(dd.getDate().toString());
-    if (prevDate === '0') {
-      console.log('if use ', dd.getDate().toString());
+    if (prevDate === "0") {
+      console.log("if use ", dd.getDate().toString());
       setPrevDate(dd.getDate.toString());
     }
 
@@ -62,11 +62,11 @@ const LoginScreen = ({navigation}) => {
 
   async function fetchData() {
     try {
-      const asyncEmail = await AsyncStorage.getItem('email');
-      const asyncPass = await AsyncStorage.getItem('pass');
-      const inc = await AsyncStorage.getItem('asyncIncrement');
-      const cur = await AsyncStorage.getItem('asyncCurrent');
-      const pre = await AsyncStorage.getItem('asyncPrev');
+      const asyncEmail = await AsyncStorage.getItem("email");
+      const asyncPass = await AsyncStorage.getItem("pass");
+      const inc = await AsyncStorage.getItem("asyncIncrement");
+      const cur = await AsyncStorage.getItem("asyncCurrent");
+      const pre = await AsyncStorage.getItem("asyncPrev");
       if (asyncEmail !== null || asyncPass != null || inc !== null) {
         // value previously stored
         setAsyncEmail(asyncEmail);
@@ -74,13 +74,13 @@ const LoginScreen = ({navigation}) => {
         setCurrentDate(cur);
         setPrevDate(pre);
         setIncrement(inc);
-        console.log('parsprev', pre, cur, inc);
+        console.log("parsprev", pre, cur, inc);
         let dif = cur - pre;
         console.log(dif);
         if (dif === 1) {
           setIncrement((dif + 1).toString());
         } else {
-          console.log('diff');
+          console.log("diff");
         }
       }
     } catch (e) {
@@ -93,33 +93,34 @@ const LoginScreen = ({navigation}) => {
       fetchData();
       if (email === aEmail && password === aPassword) {
         setSession();
-        console.log(email, 'ssad');
-        console.log('parspressv', prevDate, currentDate, increment);
+        console.log(email, "ssad");
+        console.log("parspressv", prevDate, currentDate, increment);
         asyncDate();
-        if (prevDate !== '0' && currentDate !== '0' && increment !== '0') {
-          console.log('elseif', prevDate, currentDate, increment);
-          navigation.navigate('Bottom');
+        if (prevDate !== "0" && currentDate !== "0" && increment !== "0") {
+          console.log("elseif", prevDate, currentDate, increment);
+          navigation.navigate("Bottom");
         } else {
           reset();
 
           // navigation.navigate('Bottom');
         }
       } else {
-        alert('Incorrect Email or Password');
+        alert("Incorrect Email or Password");
       }
     } else {
-      alert('Please Enter your Email and Password');
+      alert("Please Enter your Email and Password");
     }
   };
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      style={{flex: 1}}>
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
           <View style={styles.subContainer}>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: "center" }}>
               <Image style={styles.illus} source={images.login_i} />
             </View>
             <ScrollView>
@@ -133,19 +134,20 @@ const LoginScreen = ({navigation}) => {
                 onChangeText={(e) => setEmail(e)}
               />
               <TextInput
-                style={{marginBottom: 20, marginTop: 15}}
+                style={{ marginBottom: 20, marginTop: 15 }}
                 label="Password"
                 value={password}
                 onChangeText={(e) => setPassword(e)}
               />
 
-              <View style={{alignItems: 'center'}}>
+              <View style={{ alignItems: "center" }}>
                 <Button
                   mode="contained"
                   onPress={handleLogin}
-                  style={{width: 250, borderRadius: 15}}
+                  style={{ width: 250, borderRadius: 15 }}
                   labelStyle={styles.btnText}
-                  contentStyle={styles.btnInner}>
+                  contentStyle={styles.btnInner}
+                >
                   Login
                 </Button>
               </View>
@@ -155,7 +157,8 @@ const LoginScreen = ({navigation}) => {
                 <Text>don't have an account? </Text>
                 <Button
                   mode="text"
-                  onPress={() => navigation.navigate('Register')}>
+                  onPress={() => navigation.navigate("Register")}
+                >
                   Sign up
                 </Button>
               </View>
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   subContainer: {
     flex: 1,
@@ -183,24 +186,24 @@ const styles = StyleSheet.create({
   },
   txtHeading: {
     fontSize: 26,
-    fontWeight: '900',
+    fontWeight: "900",
   },
   txtSmall: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     marginLeft: 15,
-    color: '#757575',
+    color: "#757575",
     marginBottom: 20,
   },
   regContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 10,
   },
   btnText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   btnInner: {
     height: 50,

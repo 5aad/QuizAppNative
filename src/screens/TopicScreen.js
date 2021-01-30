@@ -1,48 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
-import TopAppbar from '../components/TopAppbar';
-import images from '../api/images';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import TopicList from '../components/TopicList';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import TopAppbar from "../components/TopAppbar";
+import images from "../api/images";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import TopicList from "../components/TopicList";
 const Data = [
   {
-    id: '1',
-    title: 'Cells Biology',
-    screenName: 'Tree',
+    id: "1",
+    title: "Cells Biology",
+    screenName: "Tree",
     img: images.cell,
-    type: 'topic',
+    type: "topic",
   },
   {
-    id: '2',
-    title: 'Oraganization',
-    screenName: 'Tree',
+    id: "2",
+    title: "Oraganization",
+    screenName: "Tree",
     img: images.org,
-    type: 'topic',
+    type: "topic",
   },
   {
-    id: '3',
-    title: 'Infection & Response',
-    screenName: 'Tree',
+    id: "3",
+    title: "Infection & Response",
+    screenName: "Tree",
     img: images.infec,
-    type: 'topic',
+    type: "topic",
   },
   {
-    id: '4',
-    title: 'Bioenergetics',
-    screenName: 'Tree',
+    id: "4",
+    title: "Bioenergetics",
+    screenName: "Tree",
     img: images.bio,
-    type: 'topic',
+    type: "topic",
   },
 ];
-const TopicScreen = ({navigation}) => {
-  const [headerNm, setHeaderNm] = useState('');
+const TopicScreen = ({ navigation }) => {
+  const [headerNm, setHeaderNm] = useState("");
   useEffect(() => {
     async function fetchData() {
       try {
-        const value = await AsyncStorage.getItem('board_title');
+        const value = await AsyncStorage.getItem("board_title");
         if (value !== null) {
-          // value previously stored
-          // console.log(value);
           setHeaderNm(value);
         }
       } catch (e) {
@@ -65,8 +63,8 @@ const TopicScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    backgroundColor: "white",
     paddingHorizontal: 10,
   },
   subContainer: {

@@ -1,115 +1,40 @@
-import React, {useState} from 'react';
-import {SafeAreaView, View, StyleSheet, Image, ScrollView} from 'react-native';
-import QuestionAppBar from '../components/QuestionAppBar';
-import {Title, Button, Card} from 'react-native-paper';
-import images from '../api/images';
-import {useNavigation} from '@react-navigation/native';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-const questions = [
-  {
-    questionText: 'what is cell',
-    answerOptions: [
-      {answerText: 'Nucleus', isCorrect: false},
-      {answerText: 'Mitochondria', isCorrect: true},
-      {answerText: 'Ribosomes', isCorrect: false},
-      {answerText: 'Sdbosomes', isCorrect: false},
-    ],
-  },
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TextInput,
+} from "react-native";
+import QuestionAppBar from "../components/QuestionAppBar";
+import { Title, Button, Card } from "react-native-paper";
+import images from "../api/images";
+import { useNavigation } from "@react-navigation/native";
+import RBSheet from "react-native-raw-bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-  {
-    questionText:
-      'Which of the following signaling is involved in Paracrine signaling?',
-    answerOptions: [
-      {answerText: 'Four', isCorrect: false},
-      {answerText: 'Five', isCorrect: false},
-      {answerText: 'Eight', isCorrect: true},
-      {answerText: 'Nine', isCorrect: false},
-    ],
-  },
-
-  {
-    questionText: 'How many types of cell signalings are there?',
-    answerOptions: [
-      {answerText: 'Chemicals signaling', isCorrect: true},
-      {answerText: 'Synaptic transmission', isCorrect: false},
-      {answerText: 'Hormonal Communication', isCorrect: false},
-      {answerText: 'Hormonal', isCorrect: false},
-    ],
-  },
-
-  {
-    questionText: 'What is Cell signaling?',
-    answerOptions: [
-      {answerText: 'Chemical signaling', isCorrect: false},
-      {answerText: 'Intercellular', isCorrect: true},
-      {answerText: 'Intllular', isCorrect: false},
-      {answerText: 'None of the above', isCorrect: false},
-    ],
-  },
-
-  {
-    questionText: ' What is a bond between amino acids called?',
-    answerOptions: [
-      {answerText: ' Ionic bond', isCorrect: false},
-      {answerText: 'Acidic bond', isCorrect: false},
-      {answerText: 'Peptide bond', isCorrect: true},
-      {answerText: 'tide bond', isCorrect: true},
-    ],
-  },
-];
-const QuestionScreen = ({route}) => {
-  const {id} = route.params;
+const QuestionScreen = ({ route }) => {
+  const { topic } = route.params;
   const navigation = useNavigation();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [opt, setOpt] = useState();
-  const [perc, setPerc] = useState(0.2);
-  const [colorBorderBtn, setColorBorderBtn] = useState('#00ffff');
-  const [colorBgBtn, setColorBgBtn] = useState('#00ffff47');
-  const [btnDisable, setBtnDisable] = useState(true);
-  const [checkAnswer, setCheckAnwer] = useState(false);
+  const [perc, setPerc] = useState(0);
   const [correct, setCorrect] = useState(1);
   const [wrong, setWrong] = useState(1);
-  const [clickedNext, setClickedNext] = useState(0);
-
-  const [enableNext, setEnableNext] = useState(false);
-
-  const setData = async () => {
-    try {
-      await AsyncStorage.setItem(`one_one${id}`, perc.toString());
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const setEnable = async () => {
-    try {
-      // console.log(id,'id saved')
-      await AsyncStorage.setItem('enableNext', id.toString());
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [answered, setAnswered] = useState(false);
+  const { questions } = topic;
 
   const handleNextButton = () => {
-    setClickedNext((prev) => prev + 1);
-
     const nextQuestion = currentQuestion + 1;
-    const increment = perc + 0.2;
-    if (nextQuestion < questions.length) {
+    setCurrentQuestion(nextQuestion);
+    const increment = (currentQuestion + 1) / questions.length;
+    setOpt("");
+    if (questions[nextQuestion]) {
       this.RBSheet.close();
-      setCurrentQuestion(nextQuestion);
       setPerc(increment);
-      setCheckAnwer(false);
-      setColorBgBtn('#00ffff47');
-      setColorBorderBtn('#00ffff');
-      setBtnDisable(true);
+      setAnswered(false);
     } else {
-      setEnableNext(true);
-      console.log('true', JSON.stringify(id));
-      setEnable();
-
-      setData();
       this.RBSheet.close();
       navigation.goBack();
       setCurrentQuestion(0);
@@ -117,64 +42,87 @@ const QuestionScreen = ({route}) => {
     }
   };
 
-  const handleCheckButton = () => {
-    const green = correct + 1;
-    const red = wrong + 1;
-    if (checkAnswer === true) {
-      this.RBSheet.open();
-      setColorBorderBtn('#03ac13');
-      setColorBgBtn('#03ac13');
+  const handleCheckButton = async () => {
+    setAnswered(true);
+    await AsyncStorage.setItem(
+      `${topic.name}perc`,
+      (((currentQuestion + 1) / questions.length) * 100).toString()
+    );
+
+    if (opt == questions[currentQuestion].answer) {
+      const green = correct + 1;
+
       setCorrect(green);
-    } else if (checkAnswer === false) {
-      this.RBSheet.open();
-      setColorBorderBtn('#e60026');
-      setColorBgBtn('#e60026');
-      setWrong(red);
     } else {
-      alert('something wrong!');
+      const red = wrong + 1;
+      setWrong(red);
     }
+
+    this.RBSheet.open();
   };
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <QuestionAppBar per={perc} green={correct} red={wrong} id={id} />
+        <QuestionAppBar per={perc} green={correct} red={wrong} />
 
         <ScrollView contentContainerStyle={styles.subContainer}>
           <Title style={styles.que}>
-            {' '}
-            {questions[currentQuestion].questionText}
+            {questions[currentQuestion].Question}
           </Title>
-          <Image style={styles.tinyLogo} source={images.quest} />
-          {questions[currentQuestion].answerOptions.map((answerOption, id) => (
+          {questions[currentQuestion].image ? (
+            <Image
+              style={styles.tinyLogo}
+              source={questions[currentQuestion].image}
+            />
+          ) : (
+            <View></View>
+          )}
+
+          {questions[currentQuestion].type == 1 ? (
+            questions[currentQuestion].options.map((answerOption, id) => (
+              <Card
+                key={id}
+                onPress={() => {
+                  setOpt(answerOption);
+                }}
+                style={[
+                  styles.surface,
+                  opt === answerOption ? styles.active : "",
+                ]}
+              >
+                <Title style={{ color: "#2db7ff", fontSize: 12 }}>
+                  {answerOption}
+                </Title>
+              </Card>
+            ))
+          ) : (
             <Card
-              key={id}
+              key={questions[currentQuestion].id}
               onPress={() => {
-                setOpt(answerOption.answerText);
-                setCheckAnwer(answerOption.isCorrect);
-                setBtnDisable(false);
-                setColorBorderBtn('#00ffff');
-                setColorBgBtn('#00ffff47');
+                setOpt(answerOption);
               }}
-              style={[
-                styles.surface,
-                opt === answerOption.answerText ? styles.active : '',
-              ]}>
-              <Title style={{color: '#2db7ff'}}>
-                {answerOption.answerText}
-              </Title>
+              style={[styles.surface, { height: 100 }]}
+            >
+              <TextInput
+                value={opt}
+                onChangeText={(val) => setOpt(val)}
+                placeholder="Enter you answer here"
+                multiline
+              />
             </Card>
-          ))}
+          )}
         </ScrollView>
 
         <View style={styles.btnContainer}>
           <Button
             style={[styles.btn]}
-            color={'#03ac13'}
-            disabled={btnDisable}
+            color={"#03ac13"}
+            disabled={opt ? false : true}
             contentStyle={styles.btnImgInner}
             labelStyle={[styles.btnTxt]}
             mode="contained"
-            onPress={() => handleCheckButton()}>
+            onPress={() => handleCheckButton()}
+          >
             check
           </Button>
         </View>
@@ -187,29 +135,46 @@ const QuestionScreen = ({route}) => {
           closeOnPressMask={false}
           customStyles={{
             wrapper: {
-              backgroundColor: 'transparent',
+              backgroundColor: "transparent",
             },
             container: {
-              justifyContent: 'flex-end',
+              justifyContent: "flex-end",
               paddingHorizontal: 40,
             },
-          }}>
-          {questions[currentQuestion].answerOptions.map(
-            (answerOption, id) =>
-              answerOption.isCorrect === true && (
-                <Title key={id} style={{color: colorBorderBtn}}>
-                  Correct Answer: {answerOption.answerText}
-                </Title>
-              ),
-          )}
+          }}
+        >
+          <Title
+            style={{
+              color:
+                answered && opt == questions[currentQuestion].answer
+                  ? "#03ac13"
+                  : "#e60026",
+            }}
+          >
+            Correct Answer: {questions[currentQuestion].answer}
+          </Title>
+
           <Button
-            style={[styles.btns, {borderColor: colorBorderBtn}]}
-            color={colorBgBtn}
-            disabled={btnDisable}
+            style={[
+              styles.btns,
+              {
+                borderColor:
+                  answered && opt == questions[currentQuestion].answer
+                    ? "#03ac13"
+                    : "#e60026",
+              },
+            ]}
+            color={
+              answered && opt == questions[currentQuestion].answer
+                ? "#03ac13"
+                : "#e60026"
+            }
+            disabled={answered ? false : true}
             contentStyle={styles.btnImgInner}
             labelStyle={[styles.btnTxt]}
             mode="contained"
-            onPress={handleNextButton}>
+            onPress={handleNextButton}
+          >
             Continue
           </Button>
         </RBSheet>
@@ -220,23 +185,23 @@ const QuestionScreen = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   subContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 40,
   },
   que: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   btnImgInner: {
     height: 50,
   },
   btnContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     paddingHorizontal: 40,
   },
   btn: {
@@ -250,24 +215,24 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
   surface: {
     padding: 8,
     height: 50,
     width: 300,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: "flex-start",
+    justifyContent: "center",
 
-    borderColor: '#999999',
+    borderColor: "#999999",
     borderWidth: 2,
     marginVertical: 8,
     borderRadius: 10,
   },
   active: {
-    backgroundColor: '#b3ecff',
-    borderColor: '#80dfff',
+    backgroundColor: "#b3ecff",
+    borderColor: "#80dfff",
   },
   tinyLogo: {
     height: 200,
